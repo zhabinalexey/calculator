@@ -14,50 +14,65 @@ public class Calculator {
     public void calculate() {
         while (!"q".equals(operation)) {
             try {
-                System.out.println(calculationStep());
-            } catch (InputMismatchException ex) {
+                System.out.println("Result: " + calculationStep());
+            } catch (InputMismatchException | NumberFormatException ex) {
                 System.out.println("Wrong input data!");
             }
         }
     }
 
-    private double calculationStep() throws InputMismatchException {
+    private double calculationStep() {
         System.out.println("enter first number:");
-        int firstNumber = Integer.parseInt(scanner.nextLine());
-        System.out.println("enter second number:");
-        int secondNumber = Integer.parseInt(scanner.nextLine());
-        System.out.println("enter operation to perform or q if you want to quit:");
+        double firstNumber = Double.parseDouble(scanner.nextLine());
 
+        System.out.println("enter second number:");
+        double secondNumber = Double.parseDouble(scanner.nextLine());
+
+        System.out.println("enter operation to perform or q if you want to quit:");
         operation = scanner.nextLine();
         return performOperation(firstNumber, secondNumber);
     }
 
-    private double performOperation(int firstNumber, int secondNumber) {
-        return switch (operation) {
-            case "+" -> plus(firstNumber, secondNumber);
-            case "-" -> minus(firstNumber, secondNumber);
-            case "/" -> divide(firstNumber, secondNumber);
-            case "*" -> multiply(firstNumber, secondNumber);
-            default -> 0;
-        };
+
+    private double performOperation(double firstNumber, double secondNumber) {
+        double result;
+        switch (operation) {
+            case "+":
+                result = plus(firstNumber, secondNumber);
+                break;
+            case "-":
+                result = minus(firstNumber, secondNumber);
+                break;
+            case "/":
+                result = divide(firstNumber, secondNumber);
+                break;
+            case "*":
+                result = multiply(firstNumber, secondNumber);
+                break;
+            default:
+                result = 0;
+                break;
+        }
+        return result;
     }
 
-    private int multiply(int firstNumber, int secondNumber) {
+    private double multiply(double firstNumber, double secondNumber) {
         return firstNumber * secondNumber;
     }
 
-    private int plus(int numberOne, int numberTwo) {
+    private double plus(double numberOne, double numberTwo) {
         return numberOne + numberTwo;
     }
 
-    private int minus(int numberOne, int numberTwo) {
+    private double minus(double numberOne, double numberTwo) {
         return numberOne - numberTwo;
     }
 
-    private double divide(int numberOne, int numberTwo) {
-        return (double) numberOne / numberTwo;
+    private double divide(double numberOne, double numberTwo) {
+        return numberOne / numberTwo;
     }
 }
+
 
 
 
